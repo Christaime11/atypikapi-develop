@@ -1,0 +1,914 @@
+/*
+--------------------------------------------------------------
+Couleurs
+--------------------------------------------------------------
+*/
+/*
+--------------------------------------------------------------
+responsve design |medias queries
+--------------------------------------------------------------
+*/
+/*
+/*
+--------------------------------------------------------------
+Couleurs
+--------------------------------------------------------------
+*/
+/*
+--------------------------------------------------------------
+responsve design |medias queries
+--------------------------------------------------------------
+*/
+@font-face {
+  font-family: "Montserrat-regular";
+  font-style: normal;
+  font-weight: 100;
+  src: url("../fonts/montserrat/Montserrat-Regular.otf");
+}
+@font-face {
+  font-family: "Montserrat-light";
+  font-style: normal;
+  font-weight: 100;
+  src: url("../fonts/montserrat/Montserrat-Light.otf");
+}
+@font-face {
+  font-family: "Montserrat-bold";
+  font-style: normal;
+  font-weight: 100;
+  src: url("../fonts/montserrat/Montserrat-Bold.otf");
+}
+body {
+  font-family: "Montserrat-light", "Montserrat-Regular", sans-serif;
+  background-color:#3e3e3e26;
+  font-size: 1rem;
+}
+
+.font-montserrat-bold {
+  font-family: Montserrat-bold;
+}
+
+.hidden-x {
+  overflow-x: hidden !important;
+}
+
+/*
+-----------------------
+template.blade.php
+-----------------------
+*/
+html,
+body,
+#videointro, header {
+  height: 100%;
+}
+
+.headerHome {
+  height: 100%;
+}
+
+.headerDefault {
+  height: 50%;
+}
+
+h5 {
+    font-size: 18px !important;
+    width: 100%;
+}
+@media only screen and (min-width: 768px) {
+  .headerDefault {
+    height: 80%;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .headerDefaultEnseignement {
+    height: 80% !important;
+  }
+}
+#videointro {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* The side navigation menu */
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  background-color: #03080cde;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  background-color: #03080cde;
+  color: white;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.btnMenu {
+  color: white;
+  z-index: 1;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+.footer-top {
+  background-color: #1f1f1f !important;
+  color: white;
+}
+
+.sharingLink {
+  width: 2rem;
+  border-radius: 50%;
+}
+
+.text-bold {
+  font-weight: bold !important;
+}
+
+.text-black {
+  color: black;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+.languageChoice {
+  right: 11.2rem;
+  font-size: 1.3rem;
+  top: 1.8rem;
+}
+
+.dropdown-item {
+  color: black !important;
+}
+.dropdown-item:hover {
+  background-color: #223950;
+  color: white !important;
+}
+
+.dropdown-menu-custom {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 0rem !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+}
+
+/*
+--------------------------------
+accueil.blade.php
+--------------------------------
+*/
+.font-2rem {
+  font-size: 1.5rem;
+}
+
+.footer-bottom {
+  background-color: #0a0a0a !important;
+  color: white;
+}
+
+.logo {
+  border-radius: 50%;
+  z-index: 1;
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  width: 4rem;
+}
+
+.bg-blue {
+  background-color: rgba(33, 150, 243, 0.7);
+}
+
+.bg-blue-dark {
+  background-color: #0061c2;
+}
+
+.underline-center-strong-blue {
+  width: 20rem;
+  border-bottom: 5px solid white;
+  margin: auto;
+}
+
+@media only screen and (max-width: 576px) {
+  .underline-center-strong-blue {
+    width: 5rem;
+  }
+}
+@media only screen and (min-width: 576px) and (max-width: 768px) {
+  .underline-center-strong-blue {
+    width: 10rem;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .partTile {
+    font-size: 1.3rem;
+  }
+}
+@media only screen and (min-width: 576px) and (max-width: 768px) {
+  .partTile {
+    font-size: 1.5rem;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  .partTile {
+    font-size: 2rem;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .textIntroduction, .titreEnseignement {
+    font-size: 1.6rem;
+  }
+}
+@media only screen and (min-width: 576px) and (max-width: 768px) {
+  .textIntroduction, .titreEnseignement {
+    font-size: 2rem;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  .textIntroduction, .titreEnseignement {
+    font-size: 4.2rem;
+  }
+}
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .textIntroduction, .titreEnseignement {
+    font-size: 4.5rem;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .textIntroduction, .titreEnseignement {
+    font-size: 6rem;
+  }
+
+  .titreEnseignement {
+    font-size: 3rem;
+  }
+}
+@media only screen and (max-width: 479px) {
+  .centerTextIntro {
+    margin-top: -6rem;
+  }
+}
+.introductionText {
+  padding-top: 6rem;
+}
+@media only screen and (max-width: 479px) {
+  .introductionText {
+    padding-top: 7rem !important;
+  }
+}
+
+.textCarousel {
+  font-weight: bold;
+  color: white;
+  font-size: 2rem;
+}
+
+@media only screen and (max-width: 576px) {
+  .textCarousel {
+    font-size: 1rem;
+  }
+}
+.carouseleirv {
+  margin-top: 3rem !important;
+}
+
+@media only screen and (max-width: 576px) {
+  .carouseleirv {
+    margin-top: 4rem !important;
+  }
+}
+@media only screen and (max-width: 576px) and (orientation: landscape) {
+  .carouseleirv {
+    margin-top: 0.5rem !important;
+  }
+}
+.carousel-indicators {
+  bottom: -3rem;
+}
+
+.partStyle {
+  background-color: white;
+  border-radius: 3px;
+}
+
+.timeStyle {
+  background-color: #0061c2;
+  border-radius: 3px;
+  color: white;
+}
+
+.underline {
+  width: 20rem;
+  border-bottom: 1px solid #00000059;
+}
+
+.textBold {
+  font-weight: bold;
+}
+
+.partofSectionMt {
+  margin-top: 5%;
+}
+
+/*.containerStyle{
+  margin-top: -10rem;
+  margin-bottom: 4rem;
+}*/
+.imgProgramme {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.bg-light-custom {
+  background-color: #e0e0e07a;
+}
+
+.temoignageBlock {
+  min-height: 15rem;
+  height: 15rem;
+  max-height: 15rem;
+  border-radius: 15px;
+}
+
+.temoignageCarouselIndicators {
+  background-color: #2c86c5c4 !important;
+}
+
+.temoignageIndicators .active {
+  background-color: #223950 !important;
+}
+
+@media only screen and (max-width: 479px) {
+  .enseignementIntro {
+    padding-top: 30% !important;
+    padding-bottom: 10% !important;
+  }
+}
+@media only screen and (min-width: 500px) {
+  .enseignementIntro {
+    padding-top: 14%;
+    padding-bottom: 14%;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .aproposIntro {
+    padding-top: 10%;
+    padding-bottom: 10%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .aproposIntro {
+    margin-top: 10%;
+    padding-bottom: 14%;
+  }
+}
+/*
+--------------------------------
+apropos.blade.php
+--------------------------------
+*/
+#imgintro {
+  height: 100%;
+  background: url("../img/apropos_introduction.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding: 0px;
+}
+
+#imgintroEnseignement {
+  background: url("../img/nos_enseignements.jpg") no-repeat center center fixed;
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background: url("../img/nos_enseignements.jpg");
+}
+
+#imgintroTemoignage {
+  height: 100%;
+  background: url("../img/temoignage.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.formEnseignement {
+  width: 100%;
+}
+
+/*
+---------------------------------------
+admin.messages.liste_messages.blade.php
+---------------------------------------
+ */
+.image-miniature {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.itteration-width {
+  width: 2px !important;
+  max-width: 2px !important;
+  vertical-align: middle !important;
+  text-align: center;
+}
+
+.image-width {
+  width: 35px !important;
+  max-width: 35px !important;
+  vertical-align: middle !important;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.titre-width {
+  width: 50px !important;
+  max-width: 50px !important;
+  vertical-align: middle !important;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.orateur-width {
+  width: 50px !important;
+  max-width: 50px !important;
+  vertical-align: middle !important;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.verset-width {
+  width: 35px !important;
+  max-width: 35px !important;
+  vertical-align: middle !important;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.contenu-width {
+  width: 100px !important;
+  max-width: 100px !important;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+.contenu-width h1, .contenu-width h2, .contenu-width h3, .contenu-width h4, .contenu-width h5 {
+  font-size: 15px !important;
+  font-weight: bold;
+}
+
+.date-enseignement-width {
+  width: 50px !important;
+  max-width: 50px !important;
+  vertical-align: middle !important;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.date-ajout-width {
+  width: 50px !important;
+  max-width: 50px !important;
+  vertical-align: middle !important;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.auteur-width {
+  width: 35px !important;
+  max-width: 35px !important;
+  vertical-align: middle !important;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.action-width {
+  width: 35px !important;
+  max-width: 35px !important;
+  vertical-align: middle !important;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+th {
+  font-weight: bold !important;
+  font-size: 12px !important;
+}
+
+.v-middle {
+  vertical-align: middle !important;
+}
+
+/*
+--------------------------------
+medias queries
+--------------------------------
+*/
+@media only screen and (max-width: 576px) {
+  .carousel-control-prev-custom {
+    left: -1rem !important;
+    top: -5rem !important;
+  }
+
+  .carousel-control-next-custom {
+    right: -1rem !important;
+    top: -5rem !important;
+  }
+
+  #imgintroEnseignement {
+    height: 70%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: url("../img/nos_enseignements.jpg") no-repeat center center fixed;
+  }
+
+  .titre1 {
+    width: fit-content;
+    color: white;
+    margin-left: -2.2rem;
+    position: absolute;
+  }
+
+  .titre1::after {
+    content: "";
+    width: 2px;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-bottom: 11px solid transparent;
+    border-right: 11px solid #303842;
+    position: absolute;
+    top: 1.95rem;
+    left: 0rem;
+  }
+}
+@media only screen and (min-width:576px) and (max-width:768px) {
+  .titre1 {
+    width: fit-content;
+    color: white;
+    margin-left: -3.5rem;
+    position: absolute;
+  }
+
+  .titre1::after {
+    content: "";
+    width: 2px;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-bottom: 28px solid transparent;
+    border-right: 33px solid #303842;
+    position: absolute;
+    top: 2.2rem;
+    left: 0rem;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .carousel-control-prev-custom {
+    left: -3.5rem !important;
+    top: -5rem !important;
+  }
+
+  .formEnseignement {
+    width: 50%;
+  }
+
+  .carousel-control-next-custom {
+    right: -1rem !important;
+    top: -5rem !important;
+  }
+
+  .titre1 {
+    width: fit-content;
+    color: white;
+    margin-left: -3.5rem;
+    position: absolute;
+  }
+
+  .titre1::after {
+    content: "";
+    width: 2px;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-bottom: 28px solid transparent;
+    border-right: 33px solid #303842;
+    position: absolute;
+    top: 2.56rem;
+    left: 0rem;
+  }
+}
+@media only screen and (min-width: 480px) and (max-width: 960px) {
+  .introCentered {
+    margin-top: 6rem;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  .introCentered {
+    margin-top: 3.5rem;
+  }
+}
+
+.text-admin-base{
+    color: rgb(22 107 105);
+}
+.text-admin-orange{
+    color: #c37b2d;
+}
+
+.text-admin-success{
+    color: rgb(22 107 105);
+}
+.admin-indication-validated{
+    display: inline-block;
+    background: rgb(22 107 105)!important;
+    color: white;
+    padding: 4px;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.admin-indication-unvalidated{
+    display: inline-block;
+    background: rgb(181 45 75)!important;
+    color: white;
+    padding: 4px;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.btn{
+    color: white !important;
+    padding: 10px !important;
+    text-transform: inherit !important;
+    font-size: 15px !important;
+    border-radius: 10px !important;
+}
+
+.bg-admin-base {
+    background: rgb(22 107 105)!important;
+    color: white !important;
+    text-transform: inherit;
+    font-size: 15px;
+}
+
+.bg-admin-base:hover{
+    background: rgb(22 107 105)!important;
+    color: white !important;
+    text-transform: inherit;
+    font-size: 15px;
+}
+
+.bg-admin-orange{
+    background:  #c37b2d !important;
+    color: white;
+}
+
+.btn-w-min{
+    min-width: 150px;
+}
+.btn-admin-success{
+    background: rgb(22 107 105)!important;
+    color: white ;
+    padding: 10px !important;
+    text-transform: inherit;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.btn-admin-success:hover {
+    background: rgba(22, 107, 105 ,0.85)!important;
+    color: white;
+    padding: 10px !important;
+    text-transform: inherit;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.btn-admin-danger{
+    background: rgb(181 45 75)!important;
+    color: white;
+    padding: 10px !important;
+    text-transform: inherit;
+    font-size: 15px;
+    border-radius: 10px;
+}
+.admin-image-icon
+{
+    width: 20px;
+    height: 20px
+}
+.btn-admin-danger:hover {
+    background: rgba(181, 45, 75 ,0.85)!important;
+    color: white;
+    padding: 10px !important;
+    text-transform: inherit;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.btn-admin-primary{
+    background: rgb(63 131 152)!important;
+    color: white;
+    padding: 10px !important;
+    text-transform: inherit;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.btn-admin-primary:hover {
+    background: rgba(63, 131, 152 ,0.85)!important;
+    color: white;
+    padding: 10px !important;
+    text-transform: inherit;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.admin-title-section{
+    border-left: 5px solid rgba(63, 131, 152 ,0.85);
+    padding-left: 5px;
+}
+
+.admin-divider{
+    width: 40px;
+    height:2px;
+    border-bottom: 4px solid black;
+}
+
+.textlinkenav {
+  color: #d7e1e4c4 !important;
+}
+
+.administration_author {
+  cursor: pointer;
+}
+
+.ck-editor__editable_inline {
+  min-height: 400px;
+}
+
+.photopart {
+  height: 15rem;
+  background-color: #e0e0e042;
+}
+
+button[type=submit] {
+  border-radius: 15px;
+}
+
+.p-fixed {
+  position: fixed;
+}
+
+/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.css.map */
+.left_admin_menu {
+  width: 16.2%;
+  max-width: 16.2%;
+  font-size: 0.9rem;
+}
+
+.admin_contenu {
+  font-size: 14px !important;
+}
+
+.dataTable tr th {
+  font-size: 0.8rem !important;
+}
+
+.unvalidated-message {
+  display: inline-block;
+  background-color: #ff00009c;
+  color: white;
+  padding: 4px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.validated-message {
+  display: inline-block;
+  background-color: #237b189c;
+  color: white;
+  padding: 4px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.indication-unvalidated-message {
+  display: inline-block;
+  background-color: #ff00009c;
+  color: white;
+  padding: 4px;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.indication-validated-message {
+  display: inline-block;
+  background-color: #237b189c;
+  color: white;
+  padding: 4px;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-validate, .btn-validate-temoignage {
+  background: #237b189c;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  width: 11rem;
+}
+
+.btn-validate-temoignage {
+  width: 13rem;
+}
+
+.btn-sumit-recherche {
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.testimoniesAuteur {
+  font-style: italic;
+}
+
+.h-fit {
+  height: fit-content;
+}
+
+a[data-apply="confirmation"],a[data-dismiss="confirmation"]{
+    margin:5px !important;
+    width: 80px;
+    text-align: center !important;
+}
+/*# sourceMappingURL=style.css.map */
+
+.bg-white{
+    border-radius: 15px;
+}
