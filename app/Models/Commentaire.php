@@ -13,6 +13,7 @@ class Commentaire extends Model
 
     protected $table = "commentaires";
     protected $fillable = [
+        'note',
         'contenu',
         'auteur',
         'habitat'

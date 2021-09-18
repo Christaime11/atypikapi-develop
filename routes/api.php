@@ -49,6 +49,12 @@ Route::middleware(['auth:api','cors'])->group( function(){
             Route::get('autoCancel/{idReservation}', [ReservationController::class,'autoCancelReservation'])->name('autoCancelReservation');
             Route::get('makePayement/{idReservation}', [ReservationController::class,'makePayement'])->name('makePayement');
         });
+
+    });
+
+    Route::prefix('comments')->group(function(){
+        Route::post('add/{idHabitat}', [CommentairesController::class,'addComment'])->name('addComment');
+        Route::post('getallcomments', [CommentairesController::class,'getAllcomments'])->name('getAllcomments');
     });
 
     Route::prefix('users')->group( function(){
