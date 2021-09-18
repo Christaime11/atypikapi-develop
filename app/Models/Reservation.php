@@ -15,7 +15,15 @@ class Reservation extends Model
     use SoftDeletes;
 
     protected $table = "reservations";
-    protected $fillable = ['locataire','habitat_id','detail_habitat','nbrOccupant','montantTotal','payementEffectue','lienfacture','dateArrivee','dateDepart',];
+    protected $fillable = ['locataire',
+                           'habitat_id',
+                           'detail_habitat',
+                           'nbrOccupant',
+                           'montantTotal',
+                           'payementEffectue',
+                           'lienfacture',
+                           'dateArrivee',
+                           'dateDepart',];
     protected $hidden = [
         'updated_at',
         'deleted_at'

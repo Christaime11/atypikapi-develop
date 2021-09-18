@@ -8,82 +8,90 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
-class AuthController extends Controller
-{
-    public function register(Request $request){
-        $validation = Validator::make($request->all(), [
+class AuthController extends Controller {
+    public $token = true;
+
+     /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
+
+    public function register(Request $request) {
+ 
+        $validator = Validator::make($request->all(), 
+        [ 
             'name' => 'required',
             'email' => 'email|required|unique:users',
             'telephone'=>'string|required',
             'adresse'=>'string|required',
             'password' => 'required|confirmed'
-        ]);
-
-        if ( $validation->fails() ){
-            return response()->json( [
-                'error'=>'Les informations envoyées invalides',
-                'validationErrors' => $validation->errors()
-            ], 400);
-        }
-
-        $data =  $validation->validated();
+        ]);  
+ 
+        if ($validator->fails()) {  
+            return response()->json(['error'=>$validator->errors()], 401); 
+        }   
+ 
+ 
+        $data =  $validator->validated();
 
         $data ['password'] =  bcrypt( $request->password );
         $data ['role'] = "user";
         $data ['company_verified_at'] = null;
+
         $user = User::create( $data );
-
-        if( empty($user) ){
-            return response()->json([
-                'error'=>'La création de votre compte a échoué veuillez réessayer'
-            ],500);
+  
+        if ($this->token) {
+            return $this->login($request);
         }
-
-        //envoie d'un mail de vérification d'email
-        //event(new Registered($user));
-        //$user->sendEmailVerificationNotification();
-        $accessToken = $user->createToken("authToken")->accessToken;
+  
         return response()->json([
-            'success'=>'Votre compte a été créé avec succcès',
-            'user' => $user, 'access_token'=>$accessToken
-        ],201);
+            'success' => 'Votre compte a été créé avec succcès',
+            'data' => $data
+        ], 201);
     }
 
-    public function login(Request $request)
-    {
-        $validation = Validator::make( $request->all(), [
-            'email' => 'email|required',
-            'password' => 'required'
+    public function login(Request $request) {
+        $validator = Validator::make($request->all(), [
+                'email' => 'required|email',
+                'password' => 'required|string|min:6',
+            ]);
+ 
+        if ($validator->fails()) {  
+            return response()->json(['error'=>$validator->errors()], 401); 
+        }   
+ 
+        //$input = $request->only('email', 'password');
+        $jwt_token = null;
+  
+        if (!$jwt_token = JWTAuth::attempt($validator->validated())) {
+            return response()->json([
+                'error' => 'Invalid Email or Password',
+            ], 401);
+        }
+  
+        return response()->json([
+            'success' => 'Vous êtes bien connecté',
+            'token' => $jwt_token,
         ]);
-
-        if ( $validation->fails() ){
-            return response()->json([
-                'error'=>'Les informations envoyées sont invalides',
-                'validationErrors'=>$validation->errors()
-            ],400);
-        }
-
-        $loginData = $validation->validated();
-        if ( !auth()->attempt( $loginData ) ) {
-            return response()->json([
-                'error' => ' Identifiants incorrects. Veuillez réessayer'
-            ],403);
-        }
-
-        $accessToken = auth()->user()->createToken('authToken')->accessToken;
-
-        return response()->json([
-            'success'=>'Authentification réussie !',
-            'user' => auth()->user(),
-            'access_token' => $accessToken
-        ],200);
-
     }
 
-    public function userProfileData()
-    {
-        $user = auth()->user();
-        return response()->json(['user' => $user], 200);
-    }
+    public function userProfileData()  {
+        $auth_check = JWTAuth::parseToken()->authenticate();
+        if($auth_check){
+        return response()->json(['user' => auth()->user()]);
+            }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Veulliez vous authentifier'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        } 
+    } 
+
 }

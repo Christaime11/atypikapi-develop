@@ -25,5 +25,14 @@ class UserSeeder extends Seeder
            'role'=>env('ADMIN_ROLE'),
            'created_at'=>Carbon::now(),
        ]);
+       DB::table('users')->insert([
+        'name'=>'Christaime',
+        'email'=>'linusague@icloud.com',
+        'password'=>Hash::make('pmtlinusa'),
+        'telephone'=>env('ADMIN_TEL'),
+        'adresse'=>env('ADMIN_ADRESSE'),
+        'role'=>env('ADMIN_ROLE'),
+        'created_at'=>Carbon::now(),
+    ]);
     }
 }
