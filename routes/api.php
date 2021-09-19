@@ -44,17 +44,18 @@ Route::middleware(['auth:api','cors'])->group( function(){
 
         Route::prefix('reservations')->group(function(){
             Route::post('add/{idHabitat}', [ReservationController::class,'addReservation'])->name('addReservation');
-            Route::get('allUsersReservations', [ReservationController::class,'getAllMyReservations'])->name('getAllMyReservations');
+            Route::get('getallmyreservations', [ReservationController::class,'getAllMyReservations'])->name('getAllMyReservations');
+            Route::get('getallthereservationonmyhabitat', [ReservationController::class,'getAllTheReservationOnMyhabitats'])->name('getAllTheReservationOnMyHabitat');
             Route::get('details/{idReservation}', [ReservationController::class,'getReservationDetails'])->name('getReservationDetails');
             Route::get('autoCancel/{idReservation}', [ReservationController::class,'autoCancelReservation'])->name('autoCancelReservation');
             Route::get('makePayement/{idReservation}', [ReservationController::class,'makePayement'])->name('makePayement');
         });
-
     });
 
     Route::prefix('comments')->group(function(){
         Route::post('add/{idHabitat}', [CommentairesController::class,'addComment'])->name('addComment');
-        Route::post('getallcomments', [CommentairesController::class,'getAllcomments'])->name('getAllcomments');
+        Route::get('getallcomments', [CommentairesController::class,'getAllcomments'])->name('getAllcomments');
+        Route::get('getcommentsofonehabitat/{idHabitat}', [CommentairesController::class,'getCommentsOfOneHabitat'])->name('getCommentsOfOneHabitat');
     });
 
     Route::prefix('users')->group( function(){

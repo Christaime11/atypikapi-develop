@@ -8,4 +8,6 @@ use Illuminate\Http\Request;
 class ManageReservationsController extends Controller
 {
     //
+    //@TODO public function getallReservation (for owner)
+
 }

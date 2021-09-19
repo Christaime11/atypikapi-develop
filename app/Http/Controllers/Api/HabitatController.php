@@ -46,7 +46,6 @@ class HabitatController extends Controller
                 'error'=>'Aucun habitat trouvé'
             ], 404);
         }
-        //@TODO addd habitats comments
         return response()->json([
             'success' => 'Informations de l\'habitat',
             'habitat'=> new HabitatResource($habitat)

@@ -185,10 +185,13 @@ class ManageHabitatsController extends Controller
             }
         }
     }
-/*
- * fin gestion habitats
- * ----------------------------------
- */
+
+    //@TODO public function sentNoticeOfInvalidation (for owner)
+
+    /*
+     * fin gestion habitats
+     * ----------------------------------
+     */
 
 
 
@@ -208,7 +211,6 @@ class ManageHabitatsController extends Controller
             'allProrieteTypeHabitat'=>$allProrieteTypeHabitat,
         ]);
     }
-
 
     public function addProrieteTypeHabitat(Request $request)
     {

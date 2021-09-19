@@ -46,71 +46,79 @@ class CommentairesController extends Controller
             'note' => 'required',
         ]);
 
-        if( $validator->fails() ){
+        if ($validator->fails()) {
             return response()->json([
-                'error'=>'Erreur de validation des données',
-                'validationErrors'=>$validator->errors()
-            ],400);
+                'error' => 'Erreur de validation des données',
+                'validationErrors' => $validator->errors()
+            ], 400);
         }
 
-        $commentaire =  Commentaire::create([
-            'auteur' =>Auth::id(),
-            'habitat'=>$idHabitat,
+        $commentaire = Commentaire::create([
+            'auteur' => Auth::id(),
+            'habitat' => $idHabitat,
             'note' => $request->note,
             'contenu' => $request->contenu
         ]);
 
-        if ( empty($commentaire) ){
+        if (empty($commentaire)) {
             return response()->json([
-                'error'=>'Erreur interne survenue',
-                'inputValues'=>$request->all()
-            ],500);
+                'error' => 'Erreur interne survenue',
+                'inputValues' => $request->all()
+            ], 500);
         } else {
             return response()->json([
-                'message'=>"Commentaire rajouté",
-            ],200);
+                'message' => "Commentaire rajouté",
+            ], 200);
         }
-
-
-        /*else {
-            return response()->json([
-                'reservations'=>$reservations
-            ],200);
-        }*/
 
         /**
          * AllUserReservation.
          * If this Habitat_id can be found in aLL uSERrESERVATION then
-         * "UserCanAddComment" = true*/
+         * "UserCanAddComment" = true
+         */
     }
 
     public function getAllcomments()
     {
-        $comments =  Commentaire::all();
-        if( $comments->isEmpty() ) {
+        $comments = Commentaire::all();
+        if ($comments->isEmpty()) {
             return response()->json([
-                'error'=>'Aucun Commentaire trouvé'
+                'error' => 'Aucun Commentaire trouvé'
             ], 404);
         }
 
         return response()->json([
-            'success'=>'success',
-            'commentaires'=>$comments
-        ],200);
+            'success' => 'success',
+            'commentaires' => $comments
+        ], 200);
     }
 
-    // Admin route
-    public function getcommentsOfOneHabitat($habitat_id){
+    public function getCommentsOfOneHabitat($habitat_id)
+    {
+        $comments = Commentaire::where('habitat', $habitat_id)->get();
+        if ($comments->isEmpty()) {
+            return response()->json([
+                'error' => 'Aucun Commentaire trouvé'
+            ], 404);
+        }
 
+        return response()->json([
+            'success' => 'success',
+            'commentaires' => $comments
+        ], 200);
     }
 
+    //@TODO public function deleteAComment
     // User route
-    public function deleteAComment($habitat_id){
+    public function deleteAComment($habitat_id)
+    {
 
     }
 
+    //@TODO public function editAComment
     // User route
-    public function editAComment($habitat_id){
+    public function editAComment($habitat_id)
+    {
 
     }
 
