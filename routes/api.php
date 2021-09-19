@@ -56,6 +56,8 @@ Route::middleware(['auth:api','cors'])->group( function(){
         Route::post('add/{idHabitat}', [CommentairesController::class,'addComment'])->name('addComment');
         Route::get('getallcomments', [CommentairesController::class,'getAllcomments'])->name('getAllcomments');
         Route::get('getcommentsofonehabitat/{idHabitat}', [CommentairesController::class,'getCommentsOfOneHabitat'])->name('getCommentsOfOneHabitat');
+        Route::get('getcommentsofonehabitat/{idHabitat}', [CommentairesController::class,'getCommentsOfOneHabitat'])->name('getCommentsOfOneHabitat');
+        Route::post('deleteacomment/{idComment}', [CommentairesController::class,'deleteAComment'])->name('deleteAComment');
     });
 
     Route::prefix('users')->group( function(){
