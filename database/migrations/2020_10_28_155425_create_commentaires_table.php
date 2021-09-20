@@ -17,6 +17,8 @@ class CreateCommentairesTable extends Migration
             $table->id();
             $table->string('note');
             $table->string('contenu');
+            $table->boolean('reported')->default(0);
+
             $table->unsignedBigInteger('auteur');
             $table->unsignedBigInteger('habitat');
 

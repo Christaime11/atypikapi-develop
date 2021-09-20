@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Commentaire;
 use App\Models\Habitat;
+use App\Models\ReportComment;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -184,7 +185,7 @@ class CommentairesController extends Controller
         }
     }
 
-    public function reportAComment($comment_id) {
+    public function reportAComment(Request $request, $comment_id) {
         $comment = Commentaire::find($comment_id);
 
         if (!$comment) {
@@ -193,20 +194,40 @@ class CommentairesController extends Controller
             ], 404);
         }
 
-        $comment->reported = 1;
+        $validator = Validator::make($request->all(), [
+            'description' => 'required',
+        ]);
 
-        $isSaved = $comment->save();
-        if ($isSaved) { // si l'habitat est bien enregisté en bd
+        if ($validator->fails()) {
             return response()->json([
-                'success' => 'habitat modifié avec succès !',
-                'habitat' => $comment->except('vues')
-            ], 200);
-        } else {
+                'error' => 'Erreur de validation des données',
+                'validationErrors' => $validator->errors()
+            ], 400);
+        }
 
+        $report = ReportComment::create([
+            'description' => $request->description,
+            'comment' => $comment_id,
+        ]);
+
+        if (empty($report)) {
             return response()->json([
-                'error' => 'Erreur lors de l\'enregistrement des modifications',
-                'inputs' => $comment->all()
+                'error' => 'Erreur interne survenue',
+                'inputValues' => $request->all()
             ], 500);
+        } else {
+            $comment->reported = 1;
+            $isSaved = $comment->save();
+            if ($isSaved) {
+                return response()->json([
+                    'success' => "Commentaire reporté",
+                ], 200);
+            } else {
+                return response()->json([
+                    'error' => 'Erreur lors du report du commentaire',
+                    'inputs' => $comment->all()
+                ], 500);
+            }
         }
     }
 
