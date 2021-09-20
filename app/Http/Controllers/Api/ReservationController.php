@@ -158,7 +158,7 @@ class ReservationController extends Controller
     // Shows all the reservations
     public function getAllReservation()
     {
-        $reservations = Reservation::all()->get();
+        $reservations = Reservation::all();
         if (count($reservations) == 0) {
             return response()->json([
                 'error' => 'Aucune réservation trouvée'
@@ -171,7 +171,7 @@ class ReservationController extends Controller
     }
 
     // Shows all the reservations of the owner
-    public function getAllTheReservationOnMyhabitats()
+    public function getAllTheReservationOfAllMyHabitats()
     {
         $reservations = Reservation::where("detail_habitat->proprietaire->id", Auth::id())->get();
         if (count($reservations) == 0) {
@@ -183,6 +183,25 @@ class ReservationController extends Controller
                 'reservations' => $reservations
             ], 200);
         }
+    }
+
+
+    // Shows all the reservations of one habitat of the owner
+    public function getAllTheReservationsofOneHabitat($idHabitat) {
+        $habitat = Habitat::find($idHabitat);
+        $reservations = $habitat->getReservations;
+
+        if(Auth::id() != $habitat->proprietaire && Auth::user()->role != env('ADMIN_ROLE')) {
+            return response()->json([
+                'error' => 'Vous n\'êtes pas autorisé a effectuer cette opération'
+            ], 404);
+        }
+        else {
+            return response()->json([
+                'reservations' => $reservations
+            ]);
+        }
+
     }
 
     //@TODO public function cancelReservation (for owner)

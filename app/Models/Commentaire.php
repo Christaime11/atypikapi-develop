@@ -16,7 +16,8 @@ class Commentaire extends Model
         'note',
         'contenu',
         'auteur',
-        'habitat'
+        'habitat',
+        'reported'
     ];
     protected $hidden = [
         'created_at',

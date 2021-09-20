@@ -184,4 +184,30 @@ class CommentairesController extends Controller
         }
     }
 
+    public function reportAComment($comment_id) {
+        $comment = Commentaire::find($comment_id);
+
+        if (!$comment) {
+            return response()->json([
+                'error' => 'Commentaire introuvable'
+            ], 404);
+        }
+
+        $comment->reported = 1;
+
+        $isSaved = $comment->save();
+        if ($isSaved) { // si l'habitat est bien enregisté en bd
+            return response()->json([
+                'success' => 'habitat modifié avec succès !',
+                'habitat' => $comment->except('vues')
+            ], 200);
+        } else {
+
+            return response()->json([
+                'error' => 'Erreur lors de l\'enregistrement des modifications',
+                'inputs' => $comment->all()
+            ], 500);
+        }
+    }
+
 }

@@ -45,7 +45,8 @@ Route::middleware(['auth:api','cors'])->group( function(){
         Route::prefix('reservations')->group(function(){
             Route::post('add/{idHabitat}', [ReservationController::class,'addReservation'])->name('addReservation');
             Route::get('getallmyreservations', [ReservationController::class,'getAllMyReservations'])->name('getAllMyReservations');
-            Route::get('getallthereservationonmyhabitat', [ReservationController::class,'getAllTheReservationOnMyhabitats'])->name('getAllTheReservationOnMyHabitat');
+            Route::get('getAllTheReservationOfAllMyHabitats', [ReservationController::class,'getAllTheReservationOfAllMyHabitats'])->name('getAllTheReservationOfAllMyHabitats');
+            Route::get('getAllTheReservationsofOneHabitat/{habitat_id}', [ReservationController::class,'getAllTheReservationsofOneHabitat'])->name('getAllTheReservationsofOneHabitat');
             Route::get('details/{idReservation}', [ReservationController::class,'getReservationDetails'])->name('getReservationDetails');
             Route::get('autoCancel/{idReservation}', [ReservationController::class,'autoCancelReservation'])->name('autoCancelReservation');
             Route::get('makePayement/{idReservation}', [ReservationController::class,'makePayement'])->name('makePayement');
@@ -65,7 +66,6 @@ Route::middleware(['auth:api','cors'])->group( function(){
         Route::post('askAuthorizationToAddHabitat', [UserController::class,'askAuthorizationToAddHabitat'])->name('askAuthorizationToAddHabitat');
         Route::post('updateProfil/{idUser}', [UserController::class,'updateProfil'])->name('updateProfil');
         Route::get('user-profile', [AuthController::class,'userProfileData'])->name('user.profile-data');
-
     });
 
 });
