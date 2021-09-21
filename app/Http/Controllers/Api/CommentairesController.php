@@ -9,6 +9,7 @@ use App\Models\Habitat;
 use App\Models\ReportComment;
 use App\Models\Reservation;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -20,7 +21,7 @@ class CommentairesController extends Controller
      * Si oui j'ajoute le commentaire (Note sur 5 et descrition)
      * Si non je renvoir une erreur JSON
      **/
-    public function addComment(Request $request, $idHabitat)
+    public function addComment(Request $request, $idHabitat): JsonResponse
     {
         $userReservations = Reservation::where('locataire', Auth::id())->latest()->paginate(10);
         if (count($userReservations) == 0) {
@@ -81,7 +82,7 @@ class CommentairesController extends Controller
          */
     }
 
-    public function getAllcomments()
+    public function getAllComments(): JsonResponse
     {
         $comments = Commentaire::all();
         if ($comments->isEmpty()) {
@@ -96,17 +97,8 @@ class CommentairesController extends Controller
         ], 200);
     }
 
-   /*
-    * All habitat where autor = Auther -> getcomments
-    *
-    * Je vais devoir rajouter une colonne proprietaire aux commenaires
-    * DB::table('commentaires')->where('proprietaire', Auth::id())->get()
-    *
-    * Ou renvoyé tous les details de l'habitats dans une colonne 'details-habitast
-    *
-    * */
-
-    public function getAllCommentsofOwner()
+    // Owner
+    public function getAllCommentsOfOwner(): JsonResponse
     {
         $comments = Commentaire::where("detail_habitat->proprietaire->id", Auth::id())->get();
 
@@ -122,7 +114,7 @@ class CommentairesController extends Controller
         ], 200);
     }
 
-    public function getCommentsOfOneHabitat($habitat_id)
+    public function getCommentsOfOneHabitat($habitat_id): JsonResponse
     {
         $comments = Commentaire::where('habitat', $habitat_id)->get();
         if ($comments->isEmpty()) {
@@ -137,7 +129,8 @@ class CommentairesController extends Controller
         ], 200);
     }
 
-    public function deleteAComment($comment_id)
+    // Admin
+    public function deleteAComment($comment_id): JsonResponse
     {
         $comment = Commentaire::find($comment_id);
         if (!$comment) {
@@ -146,7 +139,7 @@ class CommentairesController extends Controller
             ], 404);
         }
 
-        if(Auth::id() != $comment->auteur && Auth::user()->role != env('ADMIN_ROLE')) {
+        if (Auth::id() != $comment->auteur && Auth::user()->role != env('ADMIN_ROLE')) {
             return response()->json([
                 'error' => 'Vous n\'êtes pas autorisé a effectuer cette opération'
             ], 404);
@@ -158,15 +151,14 @@ class CommentairesController extends Controller
             return response()->json([
                 'success' => 'Commentaire supprimé avec succès !'
             ]);
-        }
-        else {
+        } else {
             return response()->json([
                 'error' => 'Une erreur est survenue lors de la suppression ; Veuillez reéessayer !'
             ]);
         }
     }
 
-    public function editAComment(Request $request, $comment_id)
+    public function editAComment(Request $request, $comment_id): JsonResponse
     {
         $comment = Commentaire::find($comment_id);
 
@@ -180,8 +172,7 @@ class CommentairesController extends Controller
             return response()->json([
                 'error' => 'Vous n\'êtes pas l\'auteur du commentaire. Vous n\'êtes pas autorisé à effectuer cette action'
             ], 403);
-        }
-        else {
+        } else {
             $validation = Validator::make($request->all(), [
                 'note' => 'required',
                 'contenu' => 'required',
@@ -204,8 +195,7 @@ class CommentairesController extends Controller
                     'success' => 'Commentaire modifié avec succès !',
                     'habitat' => $request->all()
                 ], 200);
-            }
-            else {
+            } else {
                 return response()->json([
                     'error' => 'Erreur lors de l\'enregistrement des modifications',
                     'inputs' => $request->all()
@@ -214,7 +204,8 @@ class CommentairesController extends Controller
         }
     }
 
-    public function reportAComment(Request $request, $comment_id) {
+    public function reportAComment(Request $request, $comment_id): JsonResponse
+    {
         $comment = Commentaire::find($comment_id);
 
         if (!$comment) {
@@ -261,10 +252,11 @@ class CommentairesController extends Controller
     }
 
     // Admin
-    public function getAllCommentReports(){
+    public function getAllCommentReports(): JsonResponse
+    {
         $reports = ReportComment::all();
 
-        if(Auth::user()->role != env('ADMIN_ROLE')) {
+        if (Auth::user()->role != env('ADMIN_ROLE')) {
             return response()->json([
                 'error' => 'Vous n\'êtes pas autorisé a effectuer cette opération'
             ], 404);

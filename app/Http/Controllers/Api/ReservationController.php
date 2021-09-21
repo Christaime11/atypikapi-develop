@@ -155,6 +155,7 @@ class ReservationController extends Controller
 
     //@TODO public function generatePdf( $idReservation )
 
+    // Admin
     // Shows all the reservations (admin)
     public function getAllReservation()
     {
@@ -170,6 +171,7 @@ class ReservationController extends Controller
         }
     }
 
+    // Owner
     // Shows all the reservations (owner)
     public function getAllTheReservationOfAllMyHabitats()
     {
@@ -186,6 +188,7 @@ class ReservationController extends Controller
     }
 
 
+    // Owner
     // Shows all the reservations of one habitat of the owner
     public function getAllTheReservationsofOneHabitat($idHabitat) {
         $habitat = Habitat::find($idHabitat);

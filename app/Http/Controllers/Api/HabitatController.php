@@ -36,11 +36,12 @@ class HabitatController extends Controller
         ], 200);
     }
 
+
     /**
      * @param $habitat_id int
      * Retourne les des détails d'un habitat
      */
-    public function getHabitatDetails($habitat_id)
+    public function getHabitatDetails($habitat_id): JsonResponse
     {
         $habitat = Habitat::find($habitat_id);
 
@@ -55,7 +56,8 @@ class HabitatController extends Controller
         ], 200);
     }
 
-    public function addHabitat(Request $request)
+
+    public function addHabitat(Request $request): JsonResponse
     {
 
         //on vérifie si l'utilisateur
@@ -132,6 +134,7 @@ class HabitatController extends Controller
         ], 201);
     }
 
+
     /**
      * @param Request $request
      * @param $habitat_id
@@ -145,7 +148,7 @@ class HabitatController extends Controller
      *
      * Modifie un habitat donné
      */
-    public function updateHabitat(Request $request, $habitat_id)
+    public function updateHabitat(Request $request, $habitat_id): JsonResponse
     {
         $habitat = Habitat::find($habitat_id);
 
@@ -220,6 +223,7 @@ class HabitatController extends Controller
         }
     }
 
+
     /**
      * @param $habitat_id
      * @return JsonResponse
@@ -227,7 +231,7 @@ class HabitatController extends Controller
      * Permet de supprimer un habitats
      * NB : Seul le proprietaires peuvent supprimer des habitats
      */
-    public function deleteHabitat($habitat_id)
+    public function deleteHabitat($habitat_id): JsonResponse
     {
         $habitat = Habitat::find($habitat_id);
 
@@ -256,7 +260,7 @@ class HabitatController extends Controller
      * Renvoie les habitat ajouté par un
      * utilisateur lembda
      */
-    public function getUserHabitat()
+    public function getUserHabitat(): JsonResponse
     {
         $habitats = Auth::user()->getHabitats;
         if ($habitats->count() == 0) {
@@ -272,7 +276,7 @@ class HabitatController extends Controller
     }
 
 
-    public function getAllTypeHabitat()
+    public function getAllTypeHabitat(): JsonResponse
     {
         $allTypeHabitat = TypeHabitat::where('libelle', '!=', env('DEFAULT_TYPE_HABITAT'))->get();
         if (count($allTypeHabitat) > 0) {
@@ -288,7 +292,7 @@ class HabitatController extends Controller
     }
 
 
-    public function addNewPropriete(Request $request, $idHabitat)
+    public function addNewPropriete(Request $request, $idHabitat): JsonResponse
     {
         $habitat = Habitat::find($idHabitat);
         if (empty($habitat) || $habitat->valideParAtypik != 1) {
@@ -347,5 +351,25 @@ class HabitatController extends Controller
                 'success' => 'La proprité a été bien rajouté à l\'habitat'
             ], 200);
         }
+    }
+
+
+
+
+    // Search API
+
+    public function searchHabitat($name): JsonResponse
+    {
+        $habitats = Habitat::where("valideParAtypik", 1)->where('title', "like", '%'.$name.'%')->get();
+        if ($habitats->isEmpty()) {
+            return response()->json([
+                'error' => 'Aucun résultat trouvé. Veuillez faire une autre recherche.'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => 'success',
+            'habitats' => HabitatResource::collection($habitats)
+        ], 200);
     }
 }

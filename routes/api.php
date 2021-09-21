@@ -29,6 +29,7 @@ Route::middleware('cors')->group(function(){
         Route::get('getAll', [HabitatController::class,'getAllHabitat'])->name('getAllHabitat');
         Route::get('getDetails/{habitat_id}',[HabitatController::class, 'getHabitatDetails'])->name('getHabitatDetails');
         Route::get('getAllTypeHabitats', [HabitatController::class,'getAllTypeHabitat'])->name('getAllTypeHabitat');
+        Route::get('searchHabitat/{name}', [HabitatController::class,'searchHabitat'])->name('searchHabitat');
     });
 });
 
@@ -59,7 +60,7 @@ Route::middleware(['auth:api','cors'])->group( function(){
         Route::post('deleteacomment/{idComment}', [CommentairesController::class,'deleteAComment'])->name('deleteAComment');
         Route::post('reportAComment/{idComment}', [CommentairesController::class,'reportAComment'])->name('reportAComment');
         Route::get('getAllCommentReports', [CommentairesController::class,'getAllCommentReports'])->name('getAllCommentReports');
-        Route::get('getAllCommentsofOwner', [CommentairesController::class,'getAllCommentsofOwner'])->name('getAllCommentsofOwner');
+        Route::get('getAllCommentsOfOwner', [CommentairesController::class,'getAllCommentsOfOwner'])->name('getAllCommentsOfOwner');
     });
 
     Route::prefix('users')->group( function(){
