@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Commentaire extends Model
@@ -17,6 +18,7 @@ class Commentaire extends Model
         'contenu',
         'auteur',
         'habitat',
+        'detail_habitat',
         'reported'
     ];
     protected $hidden = [
@@ -26,7 +28,7 @@ class Commentaire extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      * fonction établissant la relation entre la table Commentaire et Users
      *
      * Retourne l'auteur d'un commentaire
@@ -36,7 +38,7 @@ class Commentaire extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      *
      * Retourne l'habitat sur lequel est effectué ce commentaire
      */

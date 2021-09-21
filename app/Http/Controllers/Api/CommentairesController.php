@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Habitat as HabitatResource;
 use App\Models\Commentaire;
 use App\Models\Habitat;
 use App\Models\ReportComment;
 use App\Models\Reservation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -57,7 +59,8 @@ class CommentairesController extends Controller
             'auteur' => Auth::id(),
             'habitat' => $idHabitat,
             'note' => $request->note,
-            'contenu' => $request->contenu
+            'contenu' => $request->contenu,
+            'detail_habitat' => json_encode(new HabitatResource($habitat)),
         ]);
 
         if (empty($commentaire)) {
@@ -81,6 +84,32 @@ class CommentairesController extends Controller
     public function getAllcomments()
     {
         $comments = Commentaire::all();
+        if ($comments->isEmpty()) {
+            return response()->json([
+                'error' => 'Aucun Commentaire trouvé'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => 'success',
+            'commentaires' => $comments
+        ], 200);
+    }
+
+   /*
+    * All habitat where autor = Auther -> getcomments
+    *
+    * Je vais devoir rajouter une colonne proprietaire aux commenaires
+    * DB::table('commentaires')->where('proprietaire', Auth::id())->get()
+    *
+    * Ou renvoyé tous les details de l'habitats dans une colonne 'details-habitast
+    *
+    * */
+
+    public function getAllCommentsofOwner()
+    {
+        $comments = Commentaire::where("detail_habitat->proprietaire->id", Auth::id())->get();
+
         if ($comments->isEmpty()) {
             return response()->json([
                 'error' => 'Aucun Commentaire trouvé'
@@ -229,6 +258,28 @@ class CommentairesController extends Controller
                 ], 500);
             }
         }
+    }
+
+    // Admin
+    public function getAllCommentReports(){
+        $reports = ReportComment::all();
+
+        if(Auth::user()->role != env('ADMIN_ROLE')) {
+            return response()->json([
+                'error' => 'Vous n\'êtes pas autorisé a effectuer cette opération'
+            ], 404);
+        }
+
+        if ($reports->isEmpty()) {
+            return response()->json([
+                'error' => 'Aucun signalement de commentaire trouvé'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => 'success',
+            'commentaires' => $reports
+        ], 200);
     }
 
 }

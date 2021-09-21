@@ -188,15 +188,12 @@ class ManageHabitatsController extends Controller
 
     //@TODO public function sentNoticeOfInvalidation (for owner)
 
+    //@TODO public function askTheOwnerToModifyHisHabitat and notify him by email
+
     /*
      * fin gestion habitats
      * ----------------------------------
      */
-
-
-
-
-
 
 /*
 * ----------------------------------
@@ -285,6 +282,7 @@ class ManageHabitatsController extends Controller
         ]);
 
     }
+
     /*
      * fin gestion proriété dynamiques
      * ----------------------------------

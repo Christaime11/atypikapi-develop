@@ -25,12 +25,10 @@ Route::middleware('cors')->group(function(){
     Route::get('email/verify/{id}', [VerificationController::class,'verify'])->name('verification.verify');
     Route::get('email/resend', [VerificationController::class,'resend'])->name('verification.resend');
 
-
     Route::prefix('habitats')->group(function(){
         Route::get('getAll', [HabitatController::class,'getAllHabitat'])->name('getAllHabitat');
         Route::get('getDetails/{habitat_id}',[HabitatController::class, 'getHabitatDetails'])->name('getHabitatDetails');
         Route::get('getAllTypeHabitats', [HabitatController::class,'getAllTypeHabitat'])->name('getAllTypeHabitat');
-
     });
 });
 
@@ -60,6 +58,8 @@ Route::middleware(['auth:api','cors'])->group( function(){
         Route::get('getcommentsofonehabitat/{idHabitat}', [CommentairesController::class,'getCommentsOfOneHabitat'])->name('getCommentsOfOneHabitat');
         Route::post('deleteacomment/{idComment}', [CommentairesController::class,'deleteAComment'])->name('deleteAComment');
         Route::post('reportAComment/{idComment}', [CommentairesController::class,'reportAComment'])->name('reportAComment');
+        Route::get('getAllCommentReports', [CommentairesController::class,'getAllCommentReports'])->name('getAllCommentReports');
+        Route::get('getAllCommentsofOwner', [CommentairesController::class,'getAllCommentsofOwner'])->name('getAllCommentsofOwner');
     });
 
     Route::prefix('users')->group( function(){

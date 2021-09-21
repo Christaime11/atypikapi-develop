@@ -155,7 +155,7 @@ class ReservationController extends Controller
 
     //@TODO public function generatePdf( $idReservation )
 
-    // Shows all the reservations
+    // Shows all the reservations (admin)
     public function getAllReservation()
     {
         $reservations = Reservation::all();
@@ -170,7 +170,7 @@ class ReservationController extends Controller
         }
     }
 
-    // Shows all the reservations of the owner
+    // Shows all the reservations (owner)
     public function getAllTheReservationOfAllMyHabitats()
     {
         $reservations = Reservation::where("detail_habitat->proprietaire->id", Auth::id())->get();
