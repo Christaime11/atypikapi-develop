@@ -30,6 +30,7 @@ Route::middleware('cors')->group(function(){
         Route::get('getDetails/{habitat_id}',[HabitatController::class, 'getHabitatDetails'])->name('getHabitatDetails');
         Route::get('getAllTypeHabitats', [HabitatController::class,'getAllTypeHabitat'])->name('getAllTypeHabitat');
         Route::get('searchHabitat/{name}', [HabitatController::class,'searchHabitat'])->name('searchHabitat');
+        Route::post('filterHabitat', [HabitatController::class,'filterHabitat'])->name('filterHabitat');
     });
 });
 

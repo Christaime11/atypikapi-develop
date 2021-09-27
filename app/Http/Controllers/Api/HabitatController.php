@@ -354,8 +354,6 @@ class HabitatController extends Controller
     }
 
 
-
-
     // Search API
 
     public function searchHabitat($name): JsonResponse
@@ -371,5 +369,29 @@ class HabitatController extends Controller
             'success' => 'success',
             'habitats' => HabitatResource::collection($habitats)
         ], 200);
+    }
+
+    public function filterHabitat(Request $request){
+        /*$counter = count($request->all());*/
+
+        $habitats = Habitat::where("valideParAtypik", 1);
+
+        if ($request->has('nombreChambre')) {
+            $habitats->where('nombreChambre', '>=', $request->nombreChambre);
+        }
+
+        if ($request->has('prixParNuitMax')) {
+            $habitats->where('prixParNuit', '<=', $request->prixParNuitMax);
+        }
+
+        if ($request->has('typeHabitat')) {
+            $habitats->where('typeHabitat', $request->typeHabitat);
+        }
+
+        /*if ($request->has('created_at')) {
+            $habitats->where('created_at','>=', $request->created_at);
+        }*/
+
+        return $habitats->get();
     }
 }
