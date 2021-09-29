@@ -204,10 +204,9 @@ class ReservationController extends Controller
                 'reservations' => $reservations
             ]);
         }
-
     }
 
-    //@TODO public function cancelReservation (for owner)
+    // @TODO public function cancelReservation (for owner)
 
     public function makePayement($idReservation)
     {

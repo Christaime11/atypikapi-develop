@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Habitat;
 use App\Models\ProprieteTypeHabitat;
 use App\Models\ProprieteTypeHabitatValue;
+use App\Models\Reservation;
 use App\Models\TypeHabitat;
 use App\Models\Vue;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -375,22 +377,65 @@ class HabitatController extends Controller
         /*$counter = count($request->all());*/
 
         $habitats = Habitat::where("valideParAtypik", 1);
+        $habitats2 = Habitat::where("valideParAtypik", 1)->get();
 
-        if ($request->has('nombreChambre')) {
-            $habitats->where('nombreChambre', '>=', $request->nombreChambre);
+        if ($habitats2->isEmpty()) {
+            return response()->json([
+                'error' => 'Aucun habitat trouvé'
+            ], 404);
+        }
+
+        if ($request->has('personsCapacity')) {
+            $habitats->where('personsCapacity', '>=', $request->personsCapacity);
+        }
+
+        if ($request->has('region')) {
+            $habitats->where('region', '>=', $request->region);
         }
 
         if ($request->has('prixParNuitMax')) {
             $habitats->where('prixParNuit', '<=', $request->prixParNuitMax);
         }
 
+        if ($request->has('prixParNuitMin')) {
+            $habitats->where('prixParNuit', '>=', $request->prixParNuitMax);
+        }
+
         if ($request->has('typeHabitat')) {
             $habitats->where('typeHabitat', $request->typeHabitat);
         }
 
-        /*if ($request->has('created_at')) {
-            $habitats->where('created_at','>=', $request->created_at);
-        }*/
+        if ($request->has('hasInternet')) {
+            $habitats->where('hasInternet', $request->hasInternet);
+        }
+
+        if ($request->has('hasChauffage')) {
+            $habitats->where('hasChauffage', $request->hasChauffage);
+        }
+
+        if ($request->has('hasClimatiseur')) {
+            $habitats->where('hasClimatiseur', $request->hasClimatiseur);
+        }
+
+        if ($request->has('hasTelevision')) {
+            $habitats->where('hasTelevision', $request->hasTelevision);
+        }
+
+        if ($request->has('dateArrivee') && $request->has('dateDepart')) {
+
+            $date1 = strval(Carbon::parse($request->dateArrivee)->format('Y-m-d'));
+            $date2 = strval(Carbon::parse($request->dateDepart)->format('Y-m-d'));
+
+
+            $habitats->whereNotIn('id', function($q) use ($date2, $date1) {
+                $q->select('habitat_id')->from('reservations')
+                    ->whereDate('dateArrivee','<=', $date1)
+                    ->whereDate('dateDepart','>=', $date2);
+
+            });
+
+
+        }
 
         return $habitats->get();
     }
